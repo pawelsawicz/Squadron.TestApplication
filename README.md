@@ -1,0 +1,1 @@
+# Squadron.TestApplication
