@@ -9,6 +9,19 @@ namespace Squadron.TestApplication
         {
             httpContext.Response.StatusCode = StatusCodes.Status200OK;
             return httpContext.Response.WriteAsync("1.0.0");
+        }
+
+        public Task CheckHealthz(HttpContext httpContext)
+        {
+            httpContext.Response.StatusCode = StatusCodes.Status200OK;
+            return Task.FromResult(httpContext);
+        }
+
+        public Task GetUsersWithRandomDelay(HttpContext httpContext)
+        {
+            Task.Delay(100);
+            httpContext.Response.StatusCode = StatusCodes.Status200OK;
+            return httpContext.Response.WriteAsync("body");
         }        
     }
 }

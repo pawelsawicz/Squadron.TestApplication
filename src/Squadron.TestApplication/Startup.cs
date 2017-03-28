@@ -17,18 +17,31 @@ namespace Squadron.TestApplication
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRouting();            
+            services.AddRouting();
         }
 
         private void SetupRoutes(IApplicationBuilder app)
         {
             var routeBuilder = new RouteBuilder(app);
 
-            routeBuilder.MapGet("version", context => {
+            routeBuilder.MapGet("version", context =>
+            {
                 var homeModule = new HomeModule();
                 return homeModule.CheckVersion(context);
-            });            
-            
+            });
+
+            routeBuilder.MapGet("healthz", context =>
+            {
+                var homeModule = new HomeModule();
+                return homeModule.CheckHealthz(context);
+            });
+
+            routeBuilder.MapGet("users", context =>
+            {
+                var homeModule = new HomeModule();
+                return homeModule.GetUsersWithRandomDelay(context);
+            });
+
             var routes = routeBuilder.Build();
             app.UseRouter(routes);
         }
