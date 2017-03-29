@@ -36,10 +36,28 @@ namespace Squadron.TestApplication
                 return homeModule.CheckHealthz(context);
             });
 
-            routeBuilder.MapGet("users", context =>
+            routeBuilder.MapGet("users/{name:alpha}", context =>
+            {
+                var homeModule = new HomeModule();
+                return homeModule.GetUsersWithoutDelay(context);
+            });
+
+            routeBuilder.MapGet("usersDelayed/{name:alpha}", context =>
             {
                 var homeModule = new HomeModule();
                 return homeModule.GetUsersWithRandomDelay(context);
+            });
+
+            routeBuilder.MapPost("users/{name:alpha}", context =>
+            {
+                var homeModule = new HomeModule();
+                return homeModule.PostUserWithRandomDelay(context);
+            });
+
+            routeBuilder.MapPut("users", context =>
+            {
+                var homeModule = new HomeModule();
+                return homeModule.PutUserWithRandomDelay(context);
             });
 
             var routes = routeBuilder.Build();
